@@ -62,9 +62,18 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     CheatToQuestionState savedState = getStateFromCheatScreen();
     if (savedState != null) {
 
+        if(savedState.answerCheated){
+          onNextButtonClicked();
+          return;
+        }
+
       // fetch the model
     }
-
+    model.setQuizIndex(state.quizIndex);
+    state.question = model.getQuestion();
+    state.option1 = model.getOption1();
+    state.option2 = model.getOption2();
+    state.option3 = model.getOption3();
     // update the view
     view.get().displayQuestion(state);
   }
@@ -95,6 +104,27 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     Log.e(TAG, "onNextButtonClicked()");
 
     //TODO: falta implementacion
+
+    //Actualizamos indice
+    state.quizIndex++;
+    model.updateQuizIndex();
+
+    //Actualizamos estado de los botones
+    state.question = model.getQuestion();
+    state.option1 = model.getOption1();
+    state.option2 = model.getOption2();
+    state.option3 = model.getOption3();
+
+    //Actualizamos estado de la respuesta
+    view.get().resetReply();
+
+    //Activamos y desactivamos botones
+    state.cheatEnabled = true;
+    state.nextEnabled = false;
+    state.optionEnabled = true;
+
+    //Presentamos por pantalla
+    view.get().displayQuestion(state);
   }
 
   @Override
