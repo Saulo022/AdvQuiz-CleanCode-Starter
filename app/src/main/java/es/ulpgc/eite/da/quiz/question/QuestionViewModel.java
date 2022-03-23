@@ -9,6 +9,7 @@ public class QuestionViewModel {
   public String option2;
   public String option3;
 
+
   public boolean optionEnabled;
   public boolean nextEnabled;
   public boolean cheatEnabled;

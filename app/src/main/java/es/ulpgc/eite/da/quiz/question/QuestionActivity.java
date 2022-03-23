@@ -3,6 +3,7 @@ package es.ulpgc.eite.da.quiz.question;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ public class QuestionActivity
 
   private QuestionContract.Presenter presenter;
 
+  Button optionButton1, optionButton2, optionButton3;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -26,6 +29,7 @@ public class QuestionActivity
 
     ((TextView) findViewById(R.id.nextButton)).setText(R.string.next_button);
     ((TextView) findViewById(R.id.cheatButton)).setText(R.string.cheat_button);
+
 
     /*
     if(savedInstanceState == null) {
@@ -115,7 +119,6 @@ public class QuestionActivity
     int option = Integer.valueOf((String) view.getTag());
     presenter.onOptionButtonClicked(option);
   }
-
 
   @Override
   public void injectPresenter(QuestionContract.Presenter presenter) {
