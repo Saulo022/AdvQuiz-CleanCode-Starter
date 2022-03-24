@@ -155,11 +155,17 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     Log.e(TAG, "onCheatButtonClicked()");
 
     //TODO: falta implementacion
+
+    String answer = model.getAnswer();
+    QuestionToCheatState newState = new QuestionToCheatState(answer);
+    passStateToCheatScreen(newState);
+    view.get().navigateToCheatScreen();
   }
 
   private void passStateToCheatScreen(QuestionToCheatState state) {
 
     //TODO: falta implementacion
+    mediator.setQuestionToCheatState(state);
 
   }
 
