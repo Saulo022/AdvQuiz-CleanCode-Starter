@@ -60,6 +60,7 @@ public class CheatPresenter implements CheatContract.Presenter {
       // fetch the model
 
       // update the state
+      model.setAnswer(savedState.answer);
     }
 
     // update the view
@@ -86,7 +87,14 @@ public class CheatPresenter implements CheatContract.Presenter {
 
     //TODO: falta implementacion
     //option=1 => yes, option=0 => no
-
+    if(option==1){
+      state.answerCheated = true;
+      state.answerEnabled = false;
+      state.answer = model.getAnswer();
+      view.get().displayAnswer(state);
+    }else if (option == 0){
+      view.get().onFinish();
+    }
   }
 
   private void passStateToQuestionScreen(CheatToQuestionState state) {
