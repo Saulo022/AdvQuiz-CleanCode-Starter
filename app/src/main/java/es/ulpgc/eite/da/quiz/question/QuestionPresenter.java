@@ -49,6 +49,12 @@ public class QuestionPresenter implements QuestionContract.Presenter {
 
     //TODO: falta implementacion
 
+    if(state.optionEnabled==false){
+      boolean isCorrect = model.isCorrectOption(state.option);
+      view.get().updateReply(isCorrect);
+    }else{
+      view.get().resetReply();
+    }
   }
 
 
@@ -69,11 +75,16 @@ public class QuestionPresenter implements QuestionContract.Presenter {
 
       // fetch the model
     }
+    /*
     model.setQuizIndex(state.quizIndex);
     state.question = model.getQuestion();
     state.option1 = model.getOption1();
     state.option2 = model.getOption2();
     state.option3 = model.getOption3();
+    */
+
+
+
     // update the view
     view.get().displayQuestion(state);
   }
@@ -90,6 +101,14 @@ public class QuestionPresenter implements QuestionContract.Presenter {
 
     //TODO: falta implementacion
 
+    if(option==1){
+      state.option=1;
+    }else if (option==2){
+      state.option=2;
+    }else {
+      state.option=3;
+    }
+
     boolean isCorrect = model.isCorrectOption(option);
     if(isCorrect) {
       state.cheatEnabled=false;
@@ -98,6 +117,7 @@ public class QuestionPresenter implements QuestionContract.Presenter {
       state.cheatEnabled=true;
       view.get().updateReply(isCorrect);
     }
+    state.option = option;
     enableNextButton();
     view.get().displayQuestion(state);
   }
