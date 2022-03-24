@@ -60,11 +60,10 @@ public class CheatPresenter implements CheatContract.Presenter {
       // fetch the model
 
       // update the state
-
     }
 
     // update the view
-    view.get().displayAnswer(state);
+    //view.get().displayAnswer(state);
 
   }
 
@@ -99,7 +98,8 @@ public class CheatPresenter implements CheatContract.Presenter {
 
     //TODO: falta implementacion
 
-    return null;
+    //return null;
+    return mediator.getQuestionToCheatState();
   }
 
   @Override
