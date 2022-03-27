@@ -45,6 +45,11 @@ public class CheatPresenter implements CheatContract.Presenter {
     Log.e(TAG, "onRestart()");
 
     //TODO: falta implementacion
+    if(state.answerCheated==true){
+      view.get().displayAnswer(state);
+    }else {
+      view.get().resetAnswer();
+    }
   }
 
   @Override
@@ -78,7 +83,9 @@ public class CheatPresenter implements CheatContract.Presenter {
     Log.e(TAG, "onBackPressed()");
 
     //TODO: falta implementacion
-
+    CheatToQuestionState newState = new CheatToQuestionState(state.answerCheated);
+    passStateToQuestionScreen(newState);
+    view.get().onFinish();
   }
 
   @Override
@@ -100,6 +107,7 @@ public class CheatPresenter implements CheatContract.Presenter {
   private void passStateToQuestionScreen(CheatToQuestionState state) {
 
     //TODO: falta implementacion
+    mediator.setCheatToQuestionState(state);
   }
 
   private QuestionToCheatState getStateFromQuestionScreen() {

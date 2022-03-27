@@ -48,11 +48,17 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     Log.e(TAG, "onRestart()");
 
     //TODO: falta implementacion
+    model.setQuizIndex(state.quizIndex);
+    state.question = model.getQuestion();
+    state.option1 = model.getOption1();
+    state.option2 = model.getOption2();
+    state.option3 = model.getOption3();
 
-    if(state.optionEnabled==false){
+    if (state.optionEnabled == false) {
+      //if(model.hasQuizFinished()==false){
       boolean isCorrect = model.isCorrectOption(state.option);
       view.get().updateReply(isCorrect);
-    }else{
+    } else {
       view.get().resetReply();
     }
   }
@@ -69,12 +75,15 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     if (savedState != null) {
 
         if(savedState.answerCheated){
-          onNextButtonClicked();
-          return;
+          state.optionEnabled=false;
+          if (model.hasQuizFinished()==false){
+          onNextButtonClicked();}
+          //return;
         }
 
       // fetch the model
     }
+
     /*
     model.setQuizIndex(state.quizIndex);
     state.question = model.getQuestion();
@@ -101,24 +110,18 @@ public class QuestionPresenter implements QuestionContract.Presenter {
 
     //TODO: falta implementacion
 
-    if(option==1){
-      state.option=1;
-    }else if (option==2){
-      state.option=2;
-    }else {
-      state.option=3;
-    }
+    state.option = option;
+    state.optionClicked=true;
 
     boolean isCorrect = model.isCorrectOption(option);
     if(isCorrect) {
       state.cheatEnabled=false;
-      view.get().updateReply(isCorrect);
     } else {
       state.cheatEnabled=true;
-      view.get().updateReply(isCorrect);
     }
-    state.option = option;
+
     enableNextButton();
+    view.get().updateReply(isCorrect);
     view.get().displayQuestion(state);
   }
 
@@ -129,7 +132,8 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     //TODO: falta implementacion
 
     //Actualizamos indice
-    state.quizIndex++;
+    state.quizIndex=state.quizIndex+5;
+    //state.quizIndex++;
     model.updateQuizIndex();
 
     //Actualizamos estado de los botones
@@ -142,9 +146,10 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     view.get().resetReply();
 
     //Activamos y desactivamos botones
-    state.cheatEnabled = true;
-    state.nextEnabled = false;
-    state.optionEnabled = true;
+    //state.cheatEnabled = true;
+    //state.nextEnabled = false;
+    //state.optionEnabled = true;
+    disableNextButton();
 
     //Presentamos por pantalla
     view.get().displayQuestion(state);
@@ -172,8 +177,8 @@ public class QuestionPresenter implements QuestionContract.Presenter {
   private CheatToQuestionState getStateFromCheatScreen() {
 
     //TODO: falta implementacion
-
-    return null;
+    //return null;
+    return mediator.getCheatToQuestionState();
   }
 
   private void disableNextButton() {
